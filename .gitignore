@@ -6,3 +6,4 @@ logs/
 *.db
 .venv/
 Data/
+debug_prompts/
