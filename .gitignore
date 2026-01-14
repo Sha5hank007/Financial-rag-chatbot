@@ -5,4 +5,4 @@ uploads/
 logs/
 *.db
 .venv/
-data/
+Data/
