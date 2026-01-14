@@ -26,6 +26,55 @@ The system chunks Excel data, stores embeddings in ChromaDB, retrieves relevant 
 - **OpenRouter** (LLM API)
 - **openpyxl / numpy / pandas**
 
+-----------------------------------------------------------------------------------------------------------------
+
+## Streamlit applications
+
+This repository contains two Streamlit entry points.
+
+### 1. streamlit_app.py — Single-step retrieval
+
+Use this app for simple, direct questions.
+
+How it works:
+
+- The user query is embedded once
+- A single similarity search is performed on ChromaDB
+- Top-K relevant chunks are retrieved
+- The LLM generates an answer using only those chunks
+
+Characteristics:
+
+- Faster
+- Fewer LLM calls
+- Lower cost
+- No query routing or decomposition
+
+### 2. new_streamlit_wth_node.py — Multi-step (router-based) retrieval
+
+Use this app for complex or analytical questions involving funds, portfolios, or comparisons.
+
+How it works:
+
+- A router LLM first classifies the query as simple or complex
+- Complex queries are decomposed into focused sub-questions (e.g., fund exposure, asset allocation, maturity profile)
+- Each sub-question performs its own vector retrieval from ChromaDB
+- Each sub-question is answered independently using retrieved financial rows
+- A final synthesis step combines all sub-answers into one coherent response
+- All prompts and responses are logged for traceability
+
+Typical use cases:
+
+- Comparing multiple mutual funds
+- Analyzing portfolio composition or risk exposure
+- Cross-sheet or cross-period financial reasoning
+
+Characteristics:
+
+- Higher accuracy for multi-factor financial queries
+- Multiple retrieval and LLM calls
+- Higher latency and cost than single-step retrieval.
+
 ---
 
 ## How to run locally (without Docker)
