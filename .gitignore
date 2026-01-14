@@ -1,0 +1,7 @@
+__pycache__/
+chromadb_vectors/
+chunks/
+uploads/
+logs/
+*.db
+.venv/
