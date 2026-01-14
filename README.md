@@ -19,7 +19,7 @@ The system chunks Excel data, stores embeddings in ChromaDB, retrieves relevant 
 
 ## Tech stack
 
-- **Python 3.11**
+- **Python 3.12.7**
 - **Streamlit** (UI)
 - **ChromaDB** (vector database)
 - **SentenceTransformers** (`all-MiniLM-L12-v2`)
