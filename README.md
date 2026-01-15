@@ -77,7 +77,7 @@ Characteristics:
 
 ---
 
-## How to run locally (without Docker)
+## How to run locally 
 
 1. Clone the repository
    ```bash
