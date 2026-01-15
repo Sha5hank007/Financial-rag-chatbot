@@ -24,6 +24,21 @@ import subprocess
 import shutil
 import time
 
+BASE_DIR = Path(__file__).resolve().parent
+
+DATA_DIR    = Path(os.getenv("DATA_DIR", BASE_DIR / "Data"))
+CHUNKS_DIR  = Path(os.getenv("CHUNKS_DIR", BASE_DIR / "chunks" / "previous_chunks"))
+CHROMA_DIR  = Path(os.getenv("CHROMA_DIR", BASE_DIR / "chromadb_vectors" / "global"))
+UPLOADS_CHUNKS = Path(os.getenv("CHUNKS_DIR", BASE_DIR / "chunks" / "uploaded_chunks"))
+LOGS_DIR    = Path(os.getenv("LOGS_DIR", BASE_DIR / "logs"))
+UPLOADED_VECTOR_DB  =Path(os.getenv("CHROMA_DIR", BASE_DIR / "chromadb_vectors" / "uploaded"))
+
+for d in (DATA_DIR, CHUNKS_DIR, CHROMA_DIR, UPLOADS_DIR, LOGS_DIR):
+    d.mkdir(parents=True, exist_ok=True)
+
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+
+
 # --- session state initialization (put near the top, after imports) ---
 if "is_searching" not in st.session_state:
     st.session_state["is_searching"] = False
@@ -54,7 +69,7 @@ MODEL_NAME = os.getenv("MODEL_NAME", "xiaomi/mimo-v2-flash:free")
 
 # ChromaDB persistent folder 
 GLOBAL_CHROMA_DIR = Path(
-    r"C:\Users\GANNOJU SHAHSANK\Downloads\MAANG_PYTHON\GenAI\Financial_rag_bot\rag_json_approach\chromadb_vectors\global"
+    CHROMA_DIR 
 )
 GLOBAL_COLLECTION = "global_chunks"
 
@@ -64,7 +79,7 @@ TOP_K_PER_SUB = 50     # per-subquery retrieval
 
 # Logging directory (single .txt per query)
 LOGS_BASE_DIR = Path(
-    r"C:\Users\GANNOJU SHAHSANK\Downloads\MAANG_PYTHON\GenAI\Financial_rag_bot\rag_json_approach\logs"
+    LOGS_DIR 
 )
 LOGS_BASE_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -455,7 +470,6 @@ if st.session_state.get("final_answer"):
 
     
     
-# streamlit run "C:\Users\GANNOJU SHAHSANK\Downloads\MAANG_PYTHON\GenAI\Financial_rag_bot\rag_json_approach\new_streamlit_wth_node.py"    
 
 # compare nav per unit for Motilal Oswal Balanced Advantage Fund and Motilal Oswal Midcap Fund for last 5 years
 

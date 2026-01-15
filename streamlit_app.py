@@ -7,13 +7,32 @@ from pathlib import Path
 import streamlit as st
 from chromadb.utils import embedding_functions
 
+# === portable paths & config ===
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
+DATA_DIR    = Path(os.getenv("DATA_DIR", BASE_DIR / "Data"))
+CHUNKS_DIR  = Path(os.getenv("CHUNKS_DIR", BASE_DIR / "chunks" / "previous_chunks"))
+CHROMA_DIR  = Path(os.getenv("CHROMA_DIR", BASE_DIR / "chromadb_vectors" / "global"))
+UPLOADS_CHUNKS = Path(os.getenv("CHUNKS_DIR", BASE_DIR / "chunks" / "uploaded_chunks"))
+LOGS_DIR    = Path(os.getenv("LOGS_DIR", BASE_DIR / "logs"))
+UPLOADED_VECTOR_DB  =Path(os.getenv("CHROMA_DIR", BASE_DIR / "chromadb_vectors" / "uploaded"))
+
+for d in (DATA_DIR, CHUNKS_DIR, CHROMA_DIR, UPLOADS_DIR, LOGS_DIR):
+    d.mkdir(parents=True, exist_ok=True)
+
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+
+
 # ===============================
 # CONFIG & PATHS
 # ===============================
-GLOBAL_CHROMA_DIR = r"C:\Users\GANNOJU SHAHSANK\Downloads\MAANG_PYTHON\GenAI\Financial_rag_bot\rag_json_approach\chromadb_vectors\global"
+GLOBAL_CHROMA_DIR = CHROMA_DIR 
 GLOBAL_COLLECTION = "global_chunks"
-UPLOADED_CHUNKS_ROOT = r"C:\Users\GANNOJU SHAHSANK\Downloads\MAANG_PYTHON\GenAI\Financial_rag_bot\rag_json_approach\chunks\uploaded_chunks"
-UPLOADED_CHROMA_ROOT = r"C:\Users\GANNOJU SHAHSANK\Downloads\MAANG_PYTHON\GenAI\Financial_rag_bot\rag_json_approach\chromadb_vectors\uploaded"
+UPLOADED_CHUNKS_ROOT = UPLOADS_CHUNKS
+UPLOADED_CHROMA_ROOT = UPLOADED_VECTOR_DB
 
 TOP_K = 50
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
@@ -25,7 +44,7 @@ MODEL_NAME = "xiaomi/mimo-v2-flash:free"
 # =====================================================================================================================================
 DEBUG_MODE = True
 # Replace with your actual directory path
-DEBUG_DIR = r"C:\Users\GANNOJU SHAHSANK\Downloads\MAANG_PYTHON\GenAI\Financial_rag_bot\rag_json_approach\debug_prompts"
+DEBUG_DIR = LOGS_DIR 
 
 def save_prompt_to_file(prompt_content):
     """Saves the current prompt to a text file in the specified directory."""
@@ -200,7 +219,6 @@ if st.button("Search") and query:
 
 
 
-# streamlit run "C:\Users\GANNOJU SHAHSANK\Downloads\MAANG_PYTHON\GenAI\Financial_rag_bot\rag_json_approach\streamlit_app.py"
 
 # compare nav per unit for Motilal Oswal Balanced Advantage Fund and Motilal Oswal Midcap Fund for last 5 years
 

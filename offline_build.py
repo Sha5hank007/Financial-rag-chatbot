@@ -6,9 +6,27 @@ from pathlib import Path
 import chromadb
 from chromadb.utils import embedding_functions
 
+# === portable paths & config ===
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
+DATA_DIR    = Path(os.getenv("DATA_DIR", BASE_DIR / "Data"))
+CHUNKS_DIR  = Path(os.getenv("CHUNKS_DIR", BASE_DIR / "chunks" / "previous_chunks"))
+CHROMA_DIR  = Path(os.getenv("CHROMA_DIR", BASE_DIR / "chromadb_vectors" / "global"))
+UPLOADS_DIR = Path(os.getenv("UPLOADS_DIR", BASE_DIR / "uploads"))
+LOGS_DIR    = Path(os.getenv("LOGS_DIR", BASE_DIR / "logs"))
+
+for d in (DATA_DIR, CHUNKS_DIR, CHROMA_DIR, UPLOADS_DIR, LOGS_DIR):
+    d.mkdir(parents=True, exist_ok=True)
+
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+
+
 # === CONFIG ===
-CHUNKS_DIR = r"C:\Users\GANNOJU SHAHSANK\Downloads\MAANG_PYTHON\GenAI\Financial_rag_bot\rag_json_approach\chunks\previous_chunks"
-CHROMA_DIR = r"C:\Users\GANNOJU SHAHSANK\Downloads\MAANG_PYTHON\GenAI\Financial_rag_bot\rag_json_approach\chromadb_vectors\global"
+CHUNKS_DIR = CHUNKS_DIR
+CHROMA_DIR = CHROMA_DIR
 COLLECTION_NAME = "global_chunks"
 
 # Batch size recommendation for 2026 for performance and stability
