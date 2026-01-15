@@ -12,11 +12,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
-DATA_DIR    = Path(os.getenv("DATA_DIR", BASE_DIR / "Data"))
 CHUNKS_DIR  = Path(os.getenv("CHUNKS_DIR", BASE_DIR / "chunks" / "previous_chunks"))
 CHROMA_DIR  = Path(os.getenv("CHROMA_DIR", BASE_DIR / "chromadb_vectors" / "global"))
-UPLOADS_DIR = Path(os.getenv("UPLOADS_DIR", BASE_DIR / "uploads"))
-LOGS_DIR    = Path(os.getenv("LOGS_DIR", BASE_DIR / "logs"))
+
 
 for d in (DATA_DIR, CHUNKS_DIR, CHROMA_DIR, UPLOADS_DIR, LOGS_DIR):
     d.mkdir(parents=True, exist_ok=True)
