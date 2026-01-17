@@ -1,0 +1,10 @@
+__pycache__
+.venv
+.env
+Data
+data
+chunks
+uploads
+logs
+*.pyc
+.vscode

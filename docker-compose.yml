@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  vector-store:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: vector
+    image: financial-rag-vector-store:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - CHROMA_DIR=/data/chromadb_vectors
+    restart: unless-stopped
+
+  streamlit-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: streamlit
+    image: financial-rag-streamlit:latest
+    depends_on:
+      - vector-store
+    ports:
+      - "8501:8501"
+    environment:
+      - VECTOR_STORE_URL=http://vector-store:8000
+      - STREAMLIT_APP=new_streamlit_wth_node.py   # change to streamlit_app.py to run the other UI
+    restart: unless-stopped
