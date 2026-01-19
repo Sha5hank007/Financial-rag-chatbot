@@ -9,7 +9,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Python deps
 COPY requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
+# Install CPU-only torch first (much smaller)
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
+# Install rest without CUDA extras
+RUN pip install --no-cache-dir \
+    streamlit \
+    chromadb \
+    sentence-transformers \
+    scikit-learn \
+    pandas \
+    numpy \
+    openpyxl \
+    requests
+
+
 
 # Copy application code
 COPY . /app
