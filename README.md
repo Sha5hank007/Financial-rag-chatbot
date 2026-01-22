@@ -67,4 +67,3 @@ A pre-built ChromaDB vector database is **baked into the Docker image**, so user
    ```
   docker push shashank123docker/financial-rag-with-db:v1
 - If you want CI to build new images automatically on push, the repo already contains a GitHub Actions workflow. Ensure Docker Hub secrets are set in repo secrets (DOCKERHUB_USERNAME, DOCKERHUB_TOKEN) with write permission.
---- END OPTIONAL NOTES ---
